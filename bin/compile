@@ -149,10 +149,6 @@ echo "-----> Executing $BUILDCMD"
 eval "$BUILDCMD" | sed -u 's/^/       /'
 check_build_status
 
-echo "-----> Cleaning Build Time Artifacts"
-find target -maxdepth 1 -mindepth 1 -not -name "*.war" -print0 | xargs -0 rm -rf
-rm -rf fixtures grails-app lib m2 scripts src test web-app wrapper
-
 if [ ! -d server ] ; then
 
     mkdir server
@@ -186,6 +182,10 @@ if [ ! -d server ] ; then
 
     echo $DEFAULT_RUNNER_JAR > server/defaultRunnerJar
 fi
+
+echo "-----> Cleaning Build Time Artifacts"
+find target -maxdepth 1 -mindepth 1 -not -name "*.war" -print0 | xargs -0 rm -rf
+rm -rf fixtures grails-app lib m2 scripts src test web-app wrapper
 
 PROFILE_PATH="$BUILD_DIR/.profile.d/grails.sh"
 mkdir -p $(dirname $PROFILE_PATH)
